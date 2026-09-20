@@ -1020,14 +1020,10 @@ class WebVideo {
         if (youtubeIsOK) {
             prefixMappings["https://www.youtube.com/embed/"] = "https://www.youtube.com/watch?v=";
         }
-        // Keep the original book's clickable video pictures.
-        // Open YouTube in a new browser tab instead of replacing the picture
-        // with an inline player, which works more reliably on Safari/GitHub Pages.
         var webVideoAnchorElementArray = Array.prototype.slice.call(document.getElementsByClassName("web-video"));
         webVideoAnchorElementArray.forEach(function(webVideoAnchorElement){
-            webVideoAnchorElement.setAttribute("target", "_blank");
-            webVideoAnchorElement.setAttribute("rel", "noopener noreferrer");
-        });
+                                           WebVideo.replaceHyperlinkedImageWithInlineFrame(webVideoAnchorElement, prefixMappings);
+                                           });
     }
 }
 

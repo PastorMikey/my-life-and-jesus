@@ -907,7 +907,3 @@ td{
 	width: 220.000px;
 	height: 26.000px;
 }
-
-/* Clickable web-video images */
-.web-video { cursor: pointer; }
-.web-video img { cursor: pointer; }
