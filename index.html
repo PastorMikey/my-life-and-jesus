@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Read My Life and Jesus by Pastor Mike Nichols online for free.">
+<meta property="og:title" content="My Life and Jesus — Read Online">
+<meta property="og:description" content="Read My Life and Jesus online for free.">
+<meta property="og:type" content="website">
+<title>My Life and Jesus — Read Online</title>
+<style>
+  :root { --bar:#171717; --paper:#eee; --text:#fff; --accent:#d8b36a; }
+  * { box-sizing:border-box; }
+  html,body { margin:0; min-height:100%; background:var(--paper); font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+  .top { position:sticky; top:0; z-index:20; background:var(--bar); color:var(--text); padding:10px 12px; box-shadow:0 2px 10px rgba(0,0,0,.25); }
+  .row { max-width:1100px; margin:auto; display:flex; gap:10px; align-items:center; }
+  .title { flex:1; min-width:0; }
+  .title strong { display:block; font-size:17px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .title span { display:block; opacity:.72; font-size:12px; margin-top:2px; }
+  button, select { font:inherit; }
+  button { border:0; border-radius:7px; padding:9px 12px; cursor:pointer; background:#333; color:#fff; }
+  button:hover { background:#444; }
+  .accent { background:var(--accent); color:#171717; font-weight:700; }
+  select { max-width:230px; border-radius:7px; padding:8px; background:#fff; color:#111; }
+  .reader-wrap { width:min(100%, 760px); margin:18px auto 80px; padding:0 12px; }
+  .book-frame { width:100%; aspect-ratio:420/595; background:#fff; box-shadow:0 4px 22px rgba(0,0,0,.22); overflow:hidden; }
+  iframe { display:block; width:100%; height:100%; border:0; background:#fff; }
+  .controls { position:fixed; left:0; right:0; bottom:0; z-index:20; background:rgba(23,23,23,.97); color:#fff; padding:8px 12px; }
+  .controls .row { justify-content:center; }
+  .controls button { min-width:100px; }
+  .count { min-width:90px; text-align:center; font-size:13px; opacity:.85; }
+  .help { max-width:760px; margin:0 auto 80px; padding:0 18px; color:#444; font-size:14px; text-align:center; }
+  @media (max-width:620px) {
+    .row { flex-wrap:wrap; }
+    .title { flex-basis:calc(100% - 100px); }
+    select { flex:1; max-width:none; }
+    .reader-wrap { margin-top:10px; padding:0; }
+    .book-frame { box-shadow:none; }
+    .controls button { min-width:0; flex:1; }
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="row">
+    <div class="title"><strong>My Life and Jesus</strong><span>Pastor Mike Nichols · Read online for free</span></div>
+    <button id="tocBtn" type="button">Chapters</button>
+    <button id="fsBtn" type="button">Full screen</button>
+  </div>
+  <div class="row" id="tocRow" hidden style="margin-top:8px">
+    <select id="pageSelect" aria-label="Choose a page"></select>
+  </div>
+</header>
+<main class="reader-wrap">
+  <div class="book-frame" id="frameWrap">
+    <iframe id="book" title="My Life and Jesus online reader" src="book/cover.xhtml"></iframe>
+  </div>
+</main>
+<div class="help">Use the buttons below to move through the book. On a phone, turn the device sideways if you want a wider reading view.</div>
+<footer class="controls">
+  <div class="row">
+    <button id="prev" type="button">← Previous</button>
+    <div class="count" id="count">Cover</div>
+    <button id="next" class="accent" type="button">Next →</button>
+  </div>
+</footer>
+<script>
+const pages = [{name:'Cover — He left the 99 for Me',file:'cover.xhtml'}];
+for (let i=1;i<=33;i++) pages.push({name:`Page ${i}`,file:`page-${i}.xhtml`});
+const base='book/';
+const iframe=document.getElementById('book');
+const select=document.getElementById('pageSelect');
+const count=document.getElementById('count');
+let current=0;
+pages.forEach((p,i)=>{const o=document.createElement('option');o.value=i;o.textContent=p.name;select.appendChild(o);});
+function show(i,updateHash=true){
+  current=Math.max(0,Math.min(pages.length-1,i));
+  iframe.src=base+pages[current].file;
+  select.value=current;
+  count.textContent=current===0?'Cover':`Page ${current} of 33`;
+  if(updateHash) history.replaceState(null,'',`#${current}`);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function fromHash(){const n=parseInt(location.hash.slice(1),10);show(Number.isFinite(n)?n:0,false);}
+select.addEventListener('change',e=>show(+e.target.value));
+document.getElementById('prev').addEventListener('click',()=>show(current-1));
+document.getElementById('next').addEventListener('click',()=>show(current+1));
+document.getElementById('tocBtn').addEventListener('click',()=>{const r=document.getElementById('tocRow');r.hidden=!r.hidden;});
+document.getElementById('fsBtn').addEventListener('click',async()=>{const el=document.getElementById('frameWrap'); if(!document.fullscreenElement && el.requestFullscreen) await el.requestFullscreen(); else if(document.exitFullscreen) await document.exitFullscreen();});
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')show(current-1);if(e.key==='ArrowRight')show(current+1);});
+fromHash();
+</script>
+</body>
+</html>
